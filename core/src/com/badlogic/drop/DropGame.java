@@ -6,12 +6,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class DropGame extends Game {
 
+    // public by default
     SpriteBatch batch;
     BitmapFont font;
 
     public void create() {
         batch = new SpriteBatch();
-        // Use LibGDX's default Arial font.
         font = new BitmapFont();
         setState(GameState.MAIN_MENU);
     }
@@ -34,6 +34,9 @@ public class DropGame extends Game {
                 break;
             case GAME:
                 this.setScreen(new GameScreen(this));
+                break;
+            case CREDITS:
+                this.setScreen(new CreditsScreen(this));
                 break;
             default:
                 break;

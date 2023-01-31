@@ -33,24 +33,19 @@ public class GameScreen implements Screen {
 	public GameScreen(final DropGame game) {
 		this.game = game;
 
-		// load the images for the droplet and the bucket, 64x64 pixels each
 		dropImage = new Texture(Gdx.files.internal("droplet.png"));
 		bucketImage = new Texture(Gdx.files.internal("bucket.png"));
 
-		// load the drop sound effect and the rain background "music"
 		dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
 		rainMusic = Gdx.audio.newMusic(Gdx.files.internal("rain.mp3"));
 		rainMusic.setLooping(true);
 
-		// create the camera and the SpriteBatch
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 800, 480);
 
-		// create a Rectangle to logically represent the bucket
 		bucket = new Rectangle();
-		bucket.x = 800 / 2 - 64 / 2; // center the bucket horizontally
-		bucket.y = 20; // bottom left corner of the bucket is 20 pixels above
-						// the bottom screen edge
+		bucket.x = 800 / 2 - 64 / 2;
+		bucket.y = 20;
 		bucket.width = 64;
 		bucket.height = 64;
 
@@ -72,7 +67,6 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void render(float delta) {
-		// clear the screen with a dark blue color
 		ScreenUtils.clear(0, 0, 0.2f, 1);
 
 		// tell the camera to update its matrices.
@@ -85,6 +79,7 @@ public class GameScreen implements Screen {
 		// begin a new batch and draw the bucket and all drops
 		game.batch.begin();
 		game.font.draw(game.batch, "Drops Collected: " + dropsGathered, 0, 480);
+		game.font.draw(game.batch, "To exit press Escape", 0, 460);
 		game.batch.draw(bucketImage, bucket.x, bucket.y, bucket.width, bucket.height);
 		for (Rectangle raindrop : raindrops) {
 			game.batch.draw(dropImage, raindrop.x, raindrop.y);
@@ -102,6 +97,10 @@ public class GameScreen implements Screen {
 			bucket.x -= 200 * Gdx.graphics.getDeltaTime();
 		if (Gdx.input.isKeyPressed(Keys.RIGHT))
 			bucket.x += 200 * Gdx.graphics.getDeltaTime();
+		if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
+			game.setState(GameState.CREDITS);
+			dispose();
+		}
 
 		// make sure the bucket stays within the screen bounds
 		if (bucket.x < 0)

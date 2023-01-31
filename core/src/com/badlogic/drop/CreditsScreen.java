@@ -1,19 +1,16 @@
 package com.badlogic.drop;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.ScreenUtils;
 
-public class MainMenuScreen implements Screen {
+public class CreditsScreen implements Screen {
+
     final DropGame game;
 
     OrthographicCamera camera;
 
-    // The Screen interface does not provide any sort of create() method,
-    // so we instead use a constructor
-
-    public MainMenuScreen(final DropGame game) {
+    public CreditsScreen(final DropGame game) {
         this.game = game;
 
         camera = new OrthographicCamera();
@@ -28,14 +25,11 @@ public class MainMenuScreen implements Screen {
         game.batch.setProjectionMatrix(camera.combined);
 
         game.batch.begin();
-        game.font.draw(game.batch, "Welcome to Drop!!!", 100, 150);
-        game.font.draw(game.batch, "Tap anywhere to begin!", 100, 100);
+        game.font.draw(game.batch, "Credits:", 100, 150);
+        game.font.draw(game.batch, "Creators and contributors of LibGDX;", 100, 130);
+        game.font.draw(game.batch, "Bartosz \"Suap\" Slapa", 100, 110);
+        game.font.draw(game.batch, "Martyna \"SleepyMarcy\" Sowinska", 100, 90);
         game.batch.end();
-
-        if (Gdx.input.isTouched()) {
-            game.setState(GameState.GAME);
-            dispose();
-        }
     }
 
     @Override
