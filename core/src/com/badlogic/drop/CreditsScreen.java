@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.Input.Keys;
 
 public class CreditsScreen implements Screen {
 
@@ -33,15 +34,20 @@ public class CreditsScreen implements Screen {
 
         game.batch.begin();
         game.font.draw(game.batch, "Credits:", 100, 0 + this.y);
-        game.font.draw(game.batch, "Creators and contributors of LibGDX;", 100, -20 + this.y);        
+        game.font.draw(game.batch, "Creators and contributors of LibGDX;", 100, -20 + this.y);
         game.font.draw(game.batch, "Coding: Martyna \"SleepyMarcy\", Sowinska", 100, -40 + this.y);
-        
+
         game.font.draw(game.batch, "Coached by: Bartosz \"Suap\" Slapa", 100, -80 + this.y);
 
         game.batch.end();
 
         if (y - 80 >= 480 + 30) {
             Gdx.app.exit();
+        }
+
+        if (Gdx.input.isKeyPressed(Keys.TAB)) {
+            game.setState(GameState.MAIN_MENU);
+            dispose();
         }
     }
 
