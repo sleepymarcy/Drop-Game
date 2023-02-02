@@ -6,12 +6,12 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.Input.Keys;
 
-public class MainMenuScreen implements Screen {
-    final DropGame game;
+public class WinScreen implements Screen {
 
+    final DropGame game;
     OrthographicCamera camera;
 
-    public MainMenuScreen(final DropGame game) {
+    public WinScreen(final DropGame game) {
         this.game = game;
 
         camera = new OrthographicCamera();
@@ -20,32 +20,17 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void render(float delta) {
+
         ScreenUtils.clear(0, 0, 0.2f, 1);
 
         camera.update();
         game.batch.setProjectionMatrix(camera.combined);
 
         game.batch.begin();
-        game.font.draw(game.batch, "Welcome to Drop!!!", 200, 400);
-        game.font.draw(game.batch, "Press 1 to start the game;", 200, 350);
-        game.font.draw(game.batch, "Press 2 to see credits;", 200, 300);
-        game.font.draw(game.batch, "Press escape to exit;", 200, 250);
-        game.font.draw(game.batch, "Press tab to open menu;", 200, 200);
+        game.font.draw(game.batch, "CONGRATULATIONS", 100, 200);
+        game.font.draw(game.batch, "YOU'VE WON THE GAME", 100, 180);
+        game.font.draw(game.batch, "Press tab to open the menu.", 100, 140);
         game.batch.end();
-
-        if (Gdx.input.isKeyPressed(Keys.NUM_1)) {
-            game.setState(GameState.GAME);
-            dispose();
-        }
-
-        if (Gdx.input.isKeyPressed(Keys.NUM_2)) {
-            game.setState(GameState.CREDITS);
-            dispose();
-        }
-
-        if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
-            Gdx.app.exit();
-        }
 
         if (Gdx.input.isKeyPressed(Keys.TAB)) {
             game.setState(GameState.MAIN_MENU);

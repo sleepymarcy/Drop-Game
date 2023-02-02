@@ -28,6 +28,7 @@ public class GameScreen implements Screen {
 	Array<Rectangle> raindrops;
 	long lastDropTime;
 	int dropsGathered;
+	int dropsLost;
 
 	// constructor
 	public GameScreen(final DropGame game) {
@@ -69,20 +70,14 @@ public class GameScreen implements Screen {
 	public void render(float delta) {
 		ScreenUtils.clear(0, 0, 0.2f, 1);
 
-		// tell the camera to update its matrices.
 		camera.update();
 
-		// tell the SpriteBatch to render in the
-		// coordinate system specified by the camera.
 		game.batch.setProjectionMatrix(camera.combined);
 
-		// begin a new batch and draw the bucket and all drops
 		game.batch.begin();
 		game.font.draw(game.batch, "Drops Collected: " + dropsGathered, 0, 480);
+		game.font.draw(game.batch, "Drops Lost: " + dropsLost, 0, 460);
 
-		// game.font.draw(game.batch, "To exit press Escape", 0, 460);
-		// game.font.draw(game.batch, "To exit press Escape", 0, 440);
-		
 		game.batch.draw(bucketImage, bucket.x, bucket.y, bucket.width, bucket.height);
 		for (Rectangle raindrop : raindrops) {
 			game.batch.draw(dropImage, raindrop.x, raindrop.y);
@@ -105,12 +100,6 @@ public class GameScreen implements Screen {
 			dispose();
 		}
 
-		// if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
-		// game.setState(GameState.CREDITS);
-		// dispose();
-		// }
-
-		// make sure the bucket stays within the screen bounds
 		if (bucket.x < 0)
 			bucket.x = 0;
 		if (bucket.x > 800 - 64)
@@ -127,14 +116,27 @@ public class GameScreen implements Screen {
 		while (iter.hasNext()) {
 			Rectangle raindrop = iter.next();
 			raindrop.y -= 200 * Gdx.graphics.getDeltaTime();
-			if (raindrop.y + 64 < 0)
+			if (raindrop.y + 64 < 0) {
+				dropsLost++;
 				iter.remove();
+			}
 			if (raindrop.overlaps(bucket)) {
 				dropsGathered++;
 				dropSound.play();
 				iter.remove();
 			}
 		}
+
+		if (dropsGathered >= 20) {
+			game.setState(GameState.WIN);
+			dispose();
+		}
+
+		if (dropsLost >= 20) {
+			game.setState(GameState.LOOSE);
+			dispose();
+		}
+
 	}
 
 	@Override
@@ -143,8 +145,6 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void show() {
-		// start the playback of the background music
-		// when the screen is shown
 		rainMusic.play();
 	}
 

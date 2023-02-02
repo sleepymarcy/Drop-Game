@@ -17,8 +17,6 @@ public class DropGame extends Game {
     }
 
     public void render() {
-        // Without this call, the Screen that you set in the create() method will not be
-        // rendered if you override the render method in your Game class!
         super.render();
     }
 
@@ -37,6 +35,12 @@ public class DropGame extends Game {
                 break;
             case CREDITS:
                 this.setScreen(new CreditsScreen(this));
+                break;
+            case WIN:
+                this.setScreen(new WinScreen(this));
+                break;
+            case LOOSE:
+                this.setScreen(new LooseScreen(this));
                 break;
             default:
                 break;
