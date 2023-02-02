@@ -28,16 +28,16 @@ public class CreditsScreen implements Screen {
         ScreenUtils.clear(0, 0, 0.2f, 1);
 
         camera.update();
-        game.batch.setProjectionMatrix(camera.combined);
+        game.spriteRenderer.setProjectionMatrix(camera.combined);
 
-        game.batch.begin();
-        game.font.draw(game.batch, "Credits:", 100, 0 + this.y);
-        game.font.draw(game.batch, "Creators and contributors of LibGDX;", 100, -20 + this.y);
-        game.font.draw(game.batch, "Coding: Martyna \"SleepyMarcy\", Sowinska", 100, -40 + this.y);
+        game.spriteRenderer.begin();
+        game.font.draw(game.spriteRenderer, "Credits:", 100, 0 + this.y);
+        game.font.draw(game.spriteRenderer, "Creators and contributors of LibGDX;", 100, -20 + this.y);
+        game.font.draw(game.spriteRenderer, "Coding: Martyna \"SleepyMarcy\", Sowinska", 100, -40 + this.y);
 
-        game.font.draw(game.batch, "Coached by: Bartosz \"Suap\" Slapa", 100, -80 + this.y);
+        game.font.draw(game.spriteRenderer, "Coached by: Bartosz \"Suap\" Slapa", 100, -80 + this.y);
 
-        game.batch.end();
+        game.spriteRenderer.end();
 
         if (y - 80 >= 480 + 30) {
             game.setState(GameState.MAIN_MENU);

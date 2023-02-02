@@ -3,16 +3,19 @@ package com.badlogic.drop;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class DropGame extends Game {
 
     // public by default
-    SpriteBatch batch;
+    SpriteBatch spriteRenderer;
     BitmapFont font;
+    ShapeRenderer shapeRenderer;
 
     public void create() {
-        batch = new SpriteBatch();
+        spriteRenderer = new SpriteBatch();
         font = new BitmapFont();
+        shapeRenderer = new ShapeRenderer();
         setState(GameState.MAIN_MENU);
     }
 
@@ -21,7 +24,7 @@ public class DropGame extends Game {
     }
 
     public void dispose() {
-        batch.dispose();
+        spriteRenderer.dispose();
         font.dispose();
     }
 

@@ -72,17 +72,17 @@ public class GameScreen implements Screen {
 
 		camera.update();
 
-		game.batch.setProjectionMatrix(camera.combined);
+		game.spriteRenderer.setProjectionMatrix(camera.combined);
 
-		game.batch.begin();
-		game.font.draw(game.batch, "Drops Collected: " + dropsGathered, 0, 480);
-		game.font.draw(game.batch, "Drops Lost: " + dropsLost, 0, 460);
+		game.spriteRenderer.begin();
+		game.font.draw(game.spriteRenderer, "Drops Collected: " + dropsGathered, 0, 480);
+		game.font.draw(game.spriteRenderer, "Drops Lost: " + dropsLost, 0, 460);
 
-		game.batch.draw(bucketImage, bucket.x, bucket.y, bucket.width, bucket.height);
+		game.spriteRenderer.draw(bucketImage, bucket.x, bucket.y, bucket.width, bucket.height);
 		for (Rectangle raindrop : raindrops) {
-			game.batch.draw(dropImage, raindrop.x, raindrop.y);
+			game.spriteRenderer.draw(dropImage, raindrop.x, raindrop.y);
 		}
-		game.batch.end();
+		game.spriteRenderer.end();
 
 		// process user input
 		if (Gdx.input.isTouched()) {
@@ -95,7 +95,7 @@ public class GameScreen implements Screen {
 			bucket.x -= 200 * Gdx.graphics.getDeltaTime();
 		if (Gdx.input.isKeyPressed(Keys.RIGHT))
 			bucket.x += 200 * Gdx.graphics.getDeltaTime();
-		if (Gdx.input.isKeyPressed(Keys.TAB)) {
+		if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
 			game.setState(GameState.MAIN_MENU);
 			dispose();
 		}
