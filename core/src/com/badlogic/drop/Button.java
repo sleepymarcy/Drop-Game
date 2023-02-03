@@ -1,5 +1,7 @@
 package com.badlogic.drop;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -32,7 +34,7 @@ public class Button {
     void setText(String text) {
         this.text = text;
     }
-    
+
     void setBottomLeft(int x, int y) {
         this.x = x;
         this.y = y;
@@ -41,7 +43,7 @@ public class Button {
     void setTargetState(GameState targetState) {
         this.targetState = targetState;
     }
-    
+
     void draw() {
         renderText();
         renderRectangle();
@@ -64,7 +66,20 @@ public class Button {
         shapeRenderer.rect(this.x, this.y, this.width, this.height);
         shapeRenderer.end();
     }
-    // wywołaj odpowiedni screen
-    
+
+    private void changeToTargetState() {
+        game.setState(targetState);
+    }
+
     // czy zostałem kliknięty?
+    void clickHandler() {
+        int inputX = Gdx.input.getX();
+        int inputY = 480 - Gdx.input.getY();
+
+        if (inputX >= x && inputX <= x + width && inputY >= y && inputY <= y + height
+                &&
+                Gdx.input.isButtonPressed(Buttons.LEFT)) {
+            changeToTargetState();
+        }
+    }
 }
