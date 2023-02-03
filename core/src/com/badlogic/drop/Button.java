@@ -1,57 +1,85 @@
 package com.badlogic.drop;
 
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+
 public class Button {
-
-    final DropGame game;
-    OrthographicCamera camera;
-
-    BitmapFont some;
-    Rectangle frame;
-    GlyphLayout layout;
-    int x, y;
-    float width, height;
     String text;
+    int x;
+    int y;
+    int width;
+    int height;
+    GameState targetState;
+    final DropGame game;
 
-    public Button(final DropGame game) {
+    public Button(DropGame game, int x, int y, String text, GameState targetState) {
         this.game = game;
+        setText(text);
+        setBottomLeft(x, y);
+        setTargetState(targetState);
 
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false, 800, 480);
-
-        some = new BitmapFont();
-
+        GlyphLayout layout;
         layout = new GlyphLayout();
-        layout.setText(some, "Credits");
-
-        frame = new Rectangle();
-        frame.x = 200;
-        frame.y = 350;
-        frame.width = layout.width;
-        frame.height = layout.height;
+        layout.setText(game.font, this.text);
+        width = (int) layout.width;
+        height = (int) layout.height;
     }
-    
 
-    public void drawingEvent(){
+    void setText(String text) {
+        this.text = text;
+    }
 
-        game.spriteRenderer.begin();         
-        game.font.draw(game.spriteRenderer, text, x, y);
+    void setBottomLeft(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
 
-        game.shapeRenderer.begin(ShapeType.Line);
-        game.shapeRenderer.setColor(Color.RED);
-        game.shapeRenderer.rect(x, y - frame.height, frame.width, frame.height);
+    void setTargetState(GameState targetState) {
+        this.targetState = targetState;
+    }
 
-        game.spriteRenderer.end();
-        game.shapeRenderer.end();
+    void draw() {
+        renderText();
+        renderRectangle();
+    }
+
+    void renderText() {
+        BitmapFont font = game.font;
+        SpriteBatch spriteRenderer = game.spriteRenderer;
+
+        spriteRenderer.begin();
+        font.draw(spriteRenderer, this.text, this.x, this.y + this.height);
+        spriteRenderer.end();
+    }
+
+    void renderRectangle() {
+        ShapeRenderer shapeRenderer = game.shapeRenderer;
+
+        shapeRenderer.begin(ShapeType.Line);
+        shapeRenderer.setColor(Color.CORAL);
+        shapeRenderer.rect(this.x, this.y, this.width, this.height);
+        shapeRenderer.end();
+    }
+
+    private void changeToTargetState() {
+        game.setState(targetState);
+    }
+
+    // czy zostałem kliknięty?
+    void clickHandler() {
+        int inputX = Gdx.input.getX();
+        int inputY = 480 - Gdx.input.getY();
+
+        if (inputX >= x && inputX <= x + width && inputY >= y && inputY <= y + height
+                &&
+                Gdx.input.isButtonPressed(Buttons.LEFT)) {
+            changeToTargetState();
+        }
     }
 }
-
-// if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
-// game.setState(GameState.GAME);
-// dispose();
-// }
