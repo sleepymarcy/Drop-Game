@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-
+import com.badlogic.gdx.graphics.Color;
 public class Button {
 
     final DropGame game;
@@ -16,6 +16,7 @@ public class Button {
     GlyphLayout layout;
     int x, y;
     float width, height;
+    String text;
 
     public Button(final DropGame game) {
         this.game = game;
@@ -27,34 +28,30 @@ public class Button {
 
         layout = new GlyphLayout();
         layout.setText(some, "Credits");
-        
+
         frame = new Rectangle();
-        frame.x = x;
-        frame.y = y;
+        frame.x = 200;
+        frame.y = 350;
         frame.width = layout.width;
         frame.height = layout.height;
     }
+    
+
+    public void drawingEvent(){
+
+        game.spriteRenderer.begin();         
+        game.font.draw(game.spriteRenderer, text, x, y);
+
+        game.shapeRenderer.begin(ShapeType.Line);
+        game.shapeRenderer.setColor(Color.RED);
+        game.shapeRenderer.rect(x, y - frame.height, frame.width, frame.height);
+
+        game.spriteRenderer.end();
+        game.shapeRenderer.end();
+    }
 }
 
-
-// game.spriteRenderer.begin();
-
-// game.font.draw(game.spriteRenderer, "Welcome to Drop!!!", 200, 400);
-// game.font.draw(game.spriteRenderer, "Start", x = 200, y = 350);
-// game.font.draw(game.spriteRenderer, "Credits", 200, 300);
-// game.font.draw(game.spriteRenderer, "Exit", 200, 250);
-
-// game.shapeRenderer.begin(ShapeType.Line);
-// game.shapeRenderer.setColor(Color.RED);
-
-// game.shapeRenderer.rect(x, y - text.height, text.width, text.height);        
-// game.shapeRenderer.rect(x, y - text.height - 50, text.width, text.height);
-// game.shapeRenderer.rect(x, y - text.height - 100, text.width, text.height);
-
-// game.spriteRenderer.end();
-// game.shapeRenderer.end();
-
-// if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {            
-//     game.setState(GameState.GAME);
-//     dispose();
+// if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
+// game.setState(GameState.GAME);
+// dispose();
 // }
