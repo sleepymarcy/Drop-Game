@@ -25,6 +25,7 @@ public class DropGame extends Game {
 
     public void dispose() {
         spriteRenderer.dispose();
+        shapeRenderer.dispose();
         font.dispose();
     }
 

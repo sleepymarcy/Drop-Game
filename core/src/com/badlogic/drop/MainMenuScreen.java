@@ -11,12 +11,17 @@ public class MainMenuScreen implements Screen {
 
     final DropGame game;
     OrthographicCamera camera;
+    Button btn_1;
+    Button btn_2;
 
     public MainMenuScreen(final DropGame game) {
         this.game = game;
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
+
+        btn_1 = new Button(game, 300, 300, "Start", GameState.GAME);
+        btn_2 = new Button(game, 300, 280, "Credits", GameState.CREDITS);
     }
 
     @Override
@@ -25,20 +30,13 @@ public class MainMenuScreen implements Screen {
 
         camera.update();
         game.spriteRenderer.setProjectionMatrix(camera.combined);
+        game.shapeRenderer.setProjectionMatrix(camera.combined);
 
-        if (Gdx.input.isKeyPressed(Keys.NUM_1)) {
-            game.setState(GameState.GAME);
-            dispose();
-        }
-
-        if (Gdx.input.isKeyPressed(Keys.NUM_2)) {
-            game.setState(GameState.CREDITS);
-            dispose();
-        }
-
-        if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
-            Gdx.app.exit();
-        }
+        
+        btn_1.draw();
+        btn_2.draw();
+        btn_1.clickHandler();
+        btn_2.clickHandler();
     }
 
     @Override
