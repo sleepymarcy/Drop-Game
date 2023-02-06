@@ -1,5 +1,6 @@
 package com.badlogic.drop;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -14,8 +15,8 @@ public class DropGame extends Game {
 
     public void create() {
         spriteRenderer = new SpriteBatch();
-        font = new BitmapFont();
         shapeRenderer = new ShapeRenderer();
+        font = new BitmapFont();
         setState(GameState.MAIN_MENU);
     }
 
@@ -45,6 +46,9 @@ public class DropGame extends Game {
                 break;
             case LOOSE:
                 this.setScreen(new LooseScreen(this));
+                break;
+            case EXIT:
+                Gdx.app.exit();
                 break;
             default:
                 break;

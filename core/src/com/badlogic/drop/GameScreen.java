@@ -127,12 +127,12 @@ public class GameScreen implements Screen {
 			}
 		}
 
-		if (dropsGathered >= 20) {
+		if (dropsGathered >= 5) {
 			game.setState(GameState.WIN);
 			dispose();
 		}
 
-		if (dropsLost >= 20) {
+		if (dropsLost >= 5) {
 			game.setState(GameState.LOOSE);
 			dispose();
 		}

@@ -1,21 +1,22 @@
 package com.badlogic.drop;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.Input.Keys;
 
 public class WinScreen implements Screen {
 
     final DropGame game;
     OrthographicCamera camera;
+    Button exitButton;
 
     public WinScreen(final DropGame game) {
         this.game = game;
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
+
+        exitButton = new Button(game, 100, 120, "Back to the menu", GameState.MAIN_MENU);
     }
 
     @Override
@@ -29,13 +30,9 @@ public class WinScreen implements Screen {
         game.spriteRenderer.begin();
         game.font.draw(game.spriteRenderer, "CONGRATULATIONS", 100, 200);
         game.font.draw(game.spriteRenderer, "YOU'VE WON THE GAME", 100, 180);
-        game.font.draw(game.spriteRenderer, "Press escape to open the menu.", 100, 140);
         game.spriteRenderer.end();
-
-        if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
-            game.setState(GameState.MAIN_MENU);
-            dispose();
-        }
+        exitButton.draw();
+        exitButton.clickHandler();
     }
 
     @Override

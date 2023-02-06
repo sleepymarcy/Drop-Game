@@ -2,7 +2,6 @@ package com.badlogic.drop;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -51,6 +50,7 @@ public class Button {
 
     void renderText() {
         BitmapFont font = game.font;
+        font.getData().setScale(1.4f, 1.4f);
         SpriteBatch spriteRenderer = game.spriteRenderer;
 
         spriteRenderer.begin();
@@ -62,8 +62,8 @@ public class Button {
         ShapeRenderer shapeRenderer = game.shapeRenderer;
 
         shapeRenderer.begin(ShapeType.Line);
-        shapeRenderer.setColor(Color.CORAL);
-        shapeRenderer.rect(this.x, this.y, this.width, this.height);
+        shapeRenderer.setColor(0, 0, 0.2f, 1);
+        shapeRenderer.rect(this.x - 10, this.y - 10, this.width + 40, this.height + 20);
         shapeRenderer.end();
     }
 
@@ -76,7 +76,7 @@ public class Button {
         int inputX = Gdx.input.getX();
         int inputY = 480 - Gdx.input.getY();
 
-        if (inputX >= x && inputX <= x + width && inputY >= y && inputY <= y + height
+        if (inputX >= x - 10 && inputX - 10 <= x - 10 + width + 40 && inputY - 10 >= y - 10 && inputY - 10 <= y - 10 + height + 20
                 &&
                 Gdx.input.isButtonPressed(Buttons.LEFT)) {
             changeToTargetState();
