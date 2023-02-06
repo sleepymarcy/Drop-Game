@@ -1,16 +1,19 @@
-package com.badlogic.drop;
+package com.badlogic.drop.screens;
 
+import com.badlogic.drop.Button;
+import com.badlogic.drop.DropGame;
+import com.badlogic.drop.GameState;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.ScreenUtils;
 
-public class LooseScreen implements Screen {
+public class WinScreen implements Screen {
 
     final DropGame game;
     OrthographicCamera camera;
     Button exitButton;
 
-    public LooseScreen(final DropGame game) {
+    public WinScreen(final DropGame game) {
         this.game = game;
 
         camera = new OrthographicCamera();
@@ -28,11 +31,11 @@ public class LooseScreen implements Screen {
         game.spriteRenderer.setProjectionMatrix(camera.combined);
 
         game.spriteRenderer.begin();
-        game.font.draw(game.spriteRenderer, "YOU'VE LOST!!!", 100, 200);
+        game.font.draw(game.spriteRenderer, "CONGRATULATIONS", 100, 200);
+        game.font.draw(game.spriteRenderer, "YOU'VE WON THE GAME", 100, 180);
         game.spriteRenderer.end();
         exitButton.draw();
-        exitButton.clickHandler();
-
+        exitButton.handleClick();
     }
 
     @Override

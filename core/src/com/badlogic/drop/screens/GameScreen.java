@@ -1,7 +1,9 @@
-package com.badlogic.drop;
+package com.badlogic.drop.screens;
 
 import java.util.Iterator;
 
+import com.badlogic.drop.DropGame;
+import com.badlogic.drop.GameState;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;

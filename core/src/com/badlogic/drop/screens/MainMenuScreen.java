@@ -1,5 +1,8 @@
-package com.badlogic.drop;
+package com.badlogic.drop.screens;
 
+import com.badlogic.drop.Button;
+import com.badlogic.drop.DropGame;
+import com.badlogic.drop.GameState;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -35,9 +38,9 @@ public class MainMenuScreen implements Screen {
         creditsButton.draw();
         exitButton.draw();
 
-        startButton.clickHandler();
-        creditsButton.clickHandler();
-        exitButton.clickHandler();
+        startButton.handleClick();
+        creditsButton.handleClick();
+        exitButton.handleClick();
     }
 
     @Override

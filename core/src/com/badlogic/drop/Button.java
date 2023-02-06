@@ -3,10 +3,7 @@ package com.badlogic.drop;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
 public class Button {
@@ -31,45 +28,41 @@ public class Button {
         height = (int) layout.height;
     }
 
-    void setText(String text) {
+    public void setText(String text) {
         this.text = text;
     }
 
-    void setBottomLeft(int x, int y) {
+    public void setBottomLeft(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
-    void setTargetState(GameState targetState) {
+    public void setTargetState(GameState targetState) {
         this.targetState = targetState;
     }
 
-    void draw() {
+    public void draw() {
         renderText();
         renderRectangle();
     }
 
-    void renderText() {
-        BitmapFont font = game.font;
-        font.getData().setScale(1.4f, 1.4f);
-        SpriteBatch spriteRenderer = game.spriteRenderer;
+    private void renderText() {        
+        game.font.getData().setScale(1.4f, 1.4f);        
 
-        spriteRenderer.begin();
-        font.draw(spriteRenderer, this.text, this.x, this.y + this.height);
-        spriteRenderer.end();
+        game.spriteRenderer.begin();
+        game.font.draw(game.spriteRenderer, this.text, this.x, this.y + this.height);
+        game.spriteRenderer.end();
     }
 
-    void renderRectangle() {
-        ShapeRenderer shapeRenderer = game.shapeRenderer;
-
-        shapeRenderer.begin(ShapeType.Line);
-        shapeRenderer.setColor(0, 0, 0.2f, 1);
+    private void renderRectangle() {
+        game.shapeRenderer.begin(ShapeType.Line);
+        game.shapeRenderer.setColor(0, 0, 0.2f, 1);
         if (isMouseOver()) {
-            shapeRenderer.setColor(Color.WHITE);
+            game.shapeRenderer.setColor(Color.WHITE);
         }
-        shapeRenderer.rect(this.x - 10, this.y - 10, this.width + 40, this.height + 20);
+        game.shapeRenderer.rect(this.x - 10, this.y - 10, this.width + 40, this.height + 20);
 
-        shapeRenderer.end();
+        game.shapeRenderer.end();
     }
 
     private void changeToTargetState() {
@@ -77,7 +70,7 @@ public class Button {
     }
 
     // czy zostałem kliknięty?
-    void clickHandler() {
+    public void handleClick() {
         if (isMouseOver()
                 &&
                 Gdx.input.isButtonPressed(Buttons.LEFT)) {

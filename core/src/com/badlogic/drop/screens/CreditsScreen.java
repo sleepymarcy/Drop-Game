@@ -1,26 +1,31 @@
-package com.badlogic.drop;
+package com.badlogic.drop.screens;
 
+import com.badlogic.drop.DropGame;
+import com.badlogic.drop.GameState;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.ScreenUtils;
 
-public class WinScreen implements Screen {
+public class CreditsScreen implements Screen {
+
+    private static final int SCROLL_SPEED = 160;
 
     final DropGame game;
     OrthographicCamera camera;
-    Button exitButton;
+    private int y;
 
-    public WinScreen(final DropGame game) {
+    public CreditsScreen(final DropGame game) {
         this.game = game;
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
 
-        exitButton = new Button(game, 100, 120, "Back to the menu", GameState.MAIN_MENU);
+        this.y = 0;
     }
 
     @Override
     public void render(float delta) {
+        this.y += SCROLL_SPEED * delta;
 
         ScreenUtils.clear(0, 0, 0.2f, 1);
 
@@ -28,11 +33,18 @@ public class WinScreen implements Screen {
         game.spriteRenderer.setProjectionMatrix(camera.combined);
 
         game.spriteRenderer.begin();
-        game.font.draw(game.spriteRenderer, "CONGRATULATIONS", 100, 200);
-        game.font.draw(game.spriteRenderer, "YOU'VE WON THE GAME", 100, 180);
+        game.font.draw(game.spriteRenderer, "Credits:", 100, 0 + this.y);
+        game.font.draw(game.spriteRenderer, "Creators and contributors of LibGDX;", 100, -20 + this.y);
+        game.font.draw(game.spriteRenderer, "Coding: Martyna \"SleepyMarcy\", Sowinska", 100, -40 + this.y);
+
+        game.font.draw(game.spriteRenderer, "Coached by: Bartosz \"Suap\" Slapa", 100, -80 + this.y);
+
         game.spriteRenderer.end();
-        exitButton.draw();
-        exitButton.clickHandler();
+
+        if (y - 80 >= 480 + 30) {
+            game.setState(GameState.MAIN_MENU);
+            dispose();
+        }
     }
 
     @Override

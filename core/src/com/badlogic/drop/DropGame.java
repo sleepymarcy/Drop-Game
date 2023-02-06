@@ -1,6 +1,11 @@
 package com.badlogic.drop;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.drop.screens.CreditsScreen;
+import com.badlogic.drop.screens.GameScreen;
+import com.badlogic.drop.screens.LooseScreen;
+import com.badlogic.drop.screens.MainMenuScreen;
+import com.badlogic.drop.screens.WinScreen;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -9,9 +14,9 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 public class DropGame extends Game {
 
     // public by default
-    SpriteBatch spriteRenderer;
-    BitmapFont font;
-    ShapeRenderer shapeRenderer;
+    public SpriteBatch spriteRenderer;
+    public BitmapFont font;
+    public ShapeRenderer shapeRenderer;
 
     public void create() {
         spriteRenderer = new SpriteBatch();
