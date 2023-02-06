@@ -34,6 +34,7 @@ public class MainMenuScreen implements Screen {
         startButton.draw();
         creditsButton.draw();
         exitButton.draw();
+
         startButton.clickHandler();
         creditsButton.clickHandler();
         exitButton.clickHandler();

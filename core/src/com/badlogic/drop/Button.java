@@ -2,6 +2,7 @@ package com.badlogic.drop;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -63,7 +64,11 @@ public class Button {
 
         shapeRenderer.begin(ShapeType.Line);
         shapeRenderer.setColor(0, 0, 0.2f, 1);
+        if (isMouseOver()) {
+            shapeRenderer.setColor(Color.WHITE);
+        }
         shapeRenderer.rect(this.x - 10, this.y - 10, this.width + 40, this.height + 20);
+
         shapeRenderer.end();
     }
 
@@ -73,13 +78,18 @@ public class Button {
 
     // czy zostałem kliknięty?
     void clickHandler() {
-        int inputX = Gdx.input.getX();
-        int inputY = 480 - Gdx.input.getY();
-
-        if (inputX >= x - 10 && inputX - 10 <= x - 10 + width + 40 && inputY - 10 >= y - 10 && inputY - 10 <= y - 10 + height + 20
+        if (isMouseOver()
                 &&
                 Gdx.input.isButtonPressed(Buttons.LEFT)) {
             changeToTargetState();
         }
+    }
+
+    boolean isMouseOver() {
+        int inputX = Gdx.input.getX();
+        int inputY = 480 - Gdx.input.getY();
+
+        return inputX >= x - 10 && inputX - 10 <= x - 10 + width + 40 && inputY - 10 >= y - 10
+                && inputY - 10 <= y - 10 + height + 20;
     }
 }
