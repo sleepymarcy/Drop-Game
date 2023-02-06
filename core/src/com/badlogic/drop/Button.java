@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Rectangle;
 
 public class Button {
     String text;
@@ -14,6 +15,7 @@ public class Button {
     int height;
     GameState targetState;
     final DropGame game;
+    private Rectangle frame;
 
     public Button(DropGame game, int x, int y, String text, GameState targetState) {
         this.game = game;
@@ -26,6 +28,8 @@ public class Button {
         layout.setText(game.font, this.text);
         width = (int) layout.width;
         height = (int) layout.height;
+
+        frame = new Rectangle(x - 10.0f, y - 10.0f, width + 40.0f, height + 20.0f);
     }
 
     public void setText(String text) {
@@ -46,8 +50,8 @@ public class Button {
         renderRectangle();
     }
 
-    private void renderText() {        
-        game.font.getData().setScale(1.4f, 1.4f);        
+    private void renderText() {
+        game.font.getData().setScale(1.4f, 1.4f);
 
         game.spriteRenderer.begin();
         game.font.draw(game.spriteRenderer, this.text, this.x, this.y + this.height);
@@ -60,7 +64,7 @@ public class Button {
         if (isMouseOver()) {
             game.shapeRenderer.setColor(Color.WHITE);
         }
-        game.shapeRenderer.rect(this.x - 10, this.y - 10, this.width + 40, this.height + 20);
+        game.shapeRenderer.rect(frame.x, frame.y, frame.width, frame.height);
 
         game.shapeRenderer.end();
     }
@@ -79,10 +83,8 @@ public class Button {
     }
 
     boolean isMouseOver() {
-        int inputX = Gdx.input.getX();
-        int inputY = 480 - Gdx.input.getY();
-
-        return inputX >= x - 10 && inputX - 10 <= x - 10 + width + 40 && inputY - 10 >= y - 10
-                && inputY - 10 <= y - 10 + height + 20;
+        return frame.contains(
+                Gdx.input.getX(),
+                480.0f - Gdx.input.getY());
     }
 }
