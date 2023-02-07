@@ -1,5 +1,7 @@
-package com.badlogic.drop;
+package com.badlogic.drop.gui;
 
+import com.badlogic.drop.DropGame;
+import com.badlogic.drop.GameState;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.graphics.Color;
@@ -16,6 +18,8 @@ public class Button {
     GameState targetState;
     final DropGame game;
     private Rectangle frame;
+
+    private boolean isActive = false;
 
     public Button(DropGame game, int x, int y, String text, GameState targetState) {
         this.game = game;
@@ -45,9 +49,18 @@ public class Button {
         this.targetState = targetState;
     }
 
+    public void setActive(boolean isActive) {
+        this.isActive = isActive;
+    }
+
+    public boolean isActive() {
+        return this.isActive;
+    }
+
     public void draw() {
         renderText();
-        renderRectangle();
+        if (isActive)
+            renderRectangle();
     }
 
     private void renderText() {
@@ -58,12 +71,12 @@ public class Button {
         game.spriteRenderer.end();
     }
 
-    private void renderRectangle() {
+    private void renderRectangle() {        
         game.shapeRenderer.begin(ShapeType.Line);
         game.shapeRenderer.setColor(0, 0, 0.2f, 1);
-        if (isMouseOver()) {
-            game.shapeRenderer.setColor(Color.WHITE);
-        }
+        // if (isMouseOver()) {
+        game.shapeRenderer.setColor(Color.WHITE);
+        // }
         game.shapeRenderer.rect(frame.x, frame.y, frame.width, frame.height);
 
         game.shapeRenderer.end();
@@ -85,6 +98,6 @@ public class Button {
     boolean isMouseOver() {
         return frame.contains(
                 Gdx.input.getX(),
-                (float)game.viewportHeight - Gdx.input.getY());
+                (float) game.viewportHeight - Gdx.input.getY());
     }
 }

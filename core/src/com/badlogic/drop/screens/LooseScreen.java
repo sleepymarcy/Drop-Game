@@ -1,8 +1,8 @@
 package com.badlogic.drop.screens;
 
-import com.badlogic.drop.Button;
 import com.badlogic.drop.DropGame;
 import com.badlogic.drop.GameState;
+import com.badlogic.drop.gui.Button;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.ScreenUtils;

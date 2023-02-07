@@ -1,8 +1,9 @@
 package com.badlogic.drop.screens;
 
-import com.badlogic.drop.Button;
 import com.badlogic.drop.DropGame;
 import com.badlogic.drop.GameState;
+import com.badlogic.drop.gui.Button;
+import com.badlogic.drop.gui.Menu;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -15,15 +16,23 @@ public class MainMenuScreen implements Screen {
     Button creditsButton;
     Button exitButton;
 
+    Menu menu;
+
     public MainMenuScreen(final DropGame game) {
         this.game = game;
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, game.viewportWidth, game.viewportHeight);
 
-        startButton = new Button(game, 300, 300, "Start", GameState.GAME);
-        creditsButton = new Button(game, 300, 250, "Credits", GameState.CREDITS);
-        exitButton = new Button(game, 300, 200, "Exit", GameState.EXIT);
+        // startButton = new Button(game, 300, 300, "Start", GameState.GAME);
+        // creditsButton = new Button(game, 300, 250, "Credits", GameState.CREDITS);
+        // exitButton = new Button(game, 300, 200, "Exit", GameState.EXIT);
+
+        menu = new Menu(game, 3, 300, 300, -50);
+
+        menu.addButton(0, "Start", GameState.GAME);
+        menu.addButton(1, "Credits", GameState.CREDITS);
+        menu.addButton(2, "Exit", GameState.EXIT);
     }
 
     @Override
@@ -34,13 +43,16 @@ public class MainMenuScreen implements Screen {
         game.spriteRenderer.setProjectionMatrix(camera.combined);
         game.shapeRenderer.setProjectionMatrix(camera.combined);
 
-        startButton.draw();
-        creditsButton.draw();
-        exitButton.draw();
+        menu.update();
+        menu.draw();
 
-        startButton.handleClick();
-        creditsButton.handleClick();
-        exitButton.handleClick();
+        // startButton.draw();
+        // creditsButton.draw();
+        // exitButton.draw();
+
+        // startButton.handleClick();
+        // creditsButton.handleClick();
+        // exitButton.handleClick();
     }
 
     @Override
