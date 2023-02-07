@@ -85,6 +85,6 @@ public class Button {
     boolean isMouseOver() {
         return frame.contains(
                 Gdx.input.getX(),
-                480.0f - Gdx.input.getY());
+                (float)game.viewportHeight - Gdx.input.getY());
     }
 }

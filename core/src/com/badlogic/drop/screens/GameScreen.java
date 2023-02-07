@@ -44,10 +44,10 @@ public class GameScreen implements Screen {
 		rainMusic.setLooping(true);
 
 		camera = new OrthographicCamera();
-		camera.setToOrtho(false, 800, 480);
+        camera.setToOrtho(false, game.viewportWidth, game.viewportHeight);
 
 		bucket = new Rectangle();
-		bucket.x = 800 / 2 - 64 / 2;
+		bucket.x = game.viewportWidth / 2 - 64 / 2;
 		bucket.y = 20;
 		bucket.width = 64;
 		bucket.height = 64;
@@ -60,8 +60,8 @@ public class GameScreen implements Screen {
 
 	private void spawnRaindrop() {
 		Rectangle raindrop = new Rectangle();
-		raindrop.x = MathUtils.random(0, 800 - 64);
-		raindrop.y = 480;
+		raindrop.x = MathUtils.random(0, game.viewportWidth - 64);
+		raindrop.y = game.viewportHeight;
 		raindrop.width = 64;
 		raindrop.height = 64;
 		raindrops.add(raindrop);
@@ -77,8 +77,8 @@ public class GameScreen implements Screen {
 		game.spriteRenderer.setProjectionMatrix(camera.combined);
 
 		game.spriteRenderer.begin();
-		game.font.draw(game.spriteRenderer, "Drops Collected: " + dropsGathered, 0, 480);
-		game.font.draw(game.spriteRenderer, "Drops Lost: " + dropsLost, 0, 460);
+		game.font.draw(game.spriteRenderer, "Drops Collected: " + dropsGathered, 0, game.viewportHeight);
+		game.font.draw(game.spriteRenderer, "Drops Lost: " + dropsLost, 0, game.viewportHeight - 20);
 
 		game.spriteRenderer.draw(bucketImage, bucket.x, bucket.y, bucket.width, bucket.height);
 		for (Rectangle raindrop : raindrops) {
@@ -104,8 +104,8 @@ public class GameScreen implements Screen {
 
 		if (bucket.x < 0)
 			bucket.x = 0;
-		if (bucket.x > 800 - 64)
-			bucket.x = 800 - 64;
+		if (bucket.x > game.viewportWidth - 64)
+			bucket.x = game.viewportWidth - 64;
 
 		// check if we need to create a new raindrop
 		if (TimeUtils.nanoTime() - lastDropTime > 1000000000)

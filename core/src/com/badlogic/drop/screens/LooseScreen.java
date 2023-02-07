@@ -17,7 +17,7 @@ public class LooseScreen implements Screen {
         this.game = game;
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 800, 480);
+        camera.setToOrtho(false, game.viewportWidth, game.viewportHeight);
 
         exitButton = new Button(game, 100, 120, "Back to the menu", GameState.MAIN_MENU);
     }

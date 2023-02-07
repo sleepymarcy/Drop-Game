@@ -13,6 +13,10 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class DropGame extends Game {
 
+    // window properties
+    public final int viewportWidth = 800;
+    public final int viewportHeight = 480;
+
     // public by default
     public SpriteBatch spriteRenderer;
     public BitmapFont font;

@@ -19,7 +19,7 @@ public class MainMenuScreen implements Screen {
         this.game = game;
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 800, 480);
+        camera.setToOrtho(false, game.viewportWidth, game.viewportHeight);
 
         startButton = new Button(game, 300, 300, "Start", GameState.GAME);
         creditsButton = new Button(game, 300, 250, "Credits", GameState.CREDITS);

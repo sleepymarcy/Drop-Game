@@ -18,7 +18,7 @@ public class CreditsScreen implements Screen {
         this.game = game;
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 800, 480);
+        camera.setToOrtho(false, game.viewportWidth, game.viewportHeight);
 
         this.y = 0;
     }
@@ -41,7 +41,8 @@ public class CreditsScreen implements Screen {
 
         game.spriteRenderer.end();
 
-        if (y - 80 >= 480 + 30) {
+        // y - 80 >= game.viewportHeight + 30
+        if (y - 110 >= game.viewportHeight) {
             game.setState(GameState.MAIN_MENU);
             dispose();
         }
